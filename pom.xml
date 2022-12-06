@@ -16,9 +16,9 @@
   </properties>
 
   <scm>
-    <connection>scm:git:git@github.com:CI-CMG/crowbar-lite.git</connection>
-    <developerConnection>scm:git:git@github.com:CI-CMG/crowbar-lite.git</developerConnection>
-    <url>https://github.com/CI-CMG/crowbar-lite</url>
+    <connection>scm:git:git@github.com:CI-CMG/geosamples-ingest-jpa.git</connection>
+    <developerConnection>scm:git:git@github.com:CI-CMG/geosamples-ingest-jpa.git</developerConnection>
+    <url>https://github.com/CI-CMG/geosamples-ingest-jpa</url>
     <tag>HEAD</tag>
   </scm>
 
