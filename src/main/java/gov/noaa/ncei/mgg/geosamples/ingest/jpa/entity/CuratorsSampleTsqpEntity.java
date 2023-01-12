@@ -91,7 +91,7 @@ public class CuratorsSampleTsqpEntity implements EntityWithId<String> {
   @Column(name = "LAST_UPDATE", nullable = false)
   private Instant lastUpdate;
 
-  @Column(name = "IGSN", length = 9, unique = true)
+  @Column(name = "IGSN", length = 50, unique = true)
   private String igsn;
 
   @Column(name = "SAMPLE_COMMENTS", length = 2000)

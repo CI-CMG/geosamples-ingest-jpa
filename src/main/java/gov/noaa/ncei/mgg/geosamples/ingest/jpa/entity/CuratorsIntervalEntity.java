@@ -176,7 +176,7 @@ public class CuratorsIntervalEntity implements EntityWithId<Long> {
   @Column(name = "PREVIOUS_STATE", length = 1)
   private String previousState;
 
-  @Column(name = "IGSN", length = 9)
+  @Column(name = "IGSN", length = 50)
   private String igsn;
 
   @ManyToOne(fetch = FetchType.LAZY)
