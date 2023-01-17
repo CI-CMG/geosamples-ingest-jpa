@@ -7,4 +7,12 @@
     <packageUrl regex="true">^pkg:maven/com\.sun\.istack/istack\-commons\-runtime@.*$</packageUrl>
     <cve>CVE-2021-37533</cve>
   </suppress>
+  <suppress>
+    <notes><![CDATA[
+   file name: cmg-jpa-entity-utils-1.3.0.jar
+   reason: not using fred smith utils
+   ]]></notes>
+    <packageUrl regex="true">^pkg:maven/edu\.colorado\.cires\.cmg/cmg\-jpa\-entity\-utils@.*$</packageUrl>
+    <cve>CVE-2021-4277</cve>
+  </suppress>
 </suppressions>
