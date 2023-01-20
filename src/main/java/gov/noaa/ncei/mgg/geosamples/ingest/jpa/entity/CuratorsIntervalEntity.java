@@ -2,6 +2,9 @@ package gov.noaa.ncei.mgg.geosamples.ingest.jpa.entity;
 
 import edu.colorado.cires.cmg.jpa.model.EntityWithId;
 import edu.colorado.cires.cmg.jpa.util.EntityUtil;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -105,9 +110,13 @@ public class CuratorsIntervalEntity implements EntityWithId<Long> {
   @Column(name = "DESCRIPTION", length = 2000)
   private String description;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "AGE")
-  private CuratorsAgeEntity age;
+  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinTable(
+      name = "AGE_INTERVAL",
+      joinColumns = @JoinColumn(name = "INTERVAL_ID"),
+      inverseJoinColumns = @JoinColumn(name = "AGE")
+  )
+  private Set<CuratorsAgeEntity> ages = new HashSet<>(0);
 
   @Column(name = "ABSOLUTE_AGE_TOP", length = 50)
   private String absoluteAgeTop;
@@ -386,12 +395,15 @@ public class CuratorsIntervalEntity implements EntityWithId<Long> {
     this.description = description;
   }
 
-  public CuratorsAgeEntity getAge() {
-    return age;
+  public Set<CuratorsAgeEntity> getAges() {
+    return ages;
   }
 
-  public void setAge(CuratorsAgeEntity age) {
-    this.age = age;
+  public void setAges(Set<CuratorsAgeEntity> ages) {
+    if (ages == null) {
+      ages = new HashSet<>(0);
+    }
+    this.ages = ages;
   }
 
   public String getAbsoluteAgeTop() {

@@ -1,12 +1,14 @@
 package gov.noaa.ncei.mgg.geosamples.ingest.jpa.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /*
@@ -40,8 +42,8 @@ public class CuratorsAgeEntity {
   private String sourceUri;
 
   // no getters and setters on purpose, this needs to be here to generate a JPA query only
-  @OneToMany(mappedBy = "age")
-  private List<CuratorsIntervalEntity> intervals = new ArrayList<>();
+  @ManyToMany(mappedBy = "ages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private Set<CuratorsIntervalEntity> intervals = new HashSet<>(0);
 
   @Override
   public boolean equals(Object o) {
