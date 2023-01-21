@@ -110,7 +110,7 @@ public class CuratorsIntervalEntity implements EntityWithId<Long> {
   @Column(name = "DESCRIPTION", length = 2000)
   private String description;
 
-  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
       name = "AGE_INTERVAL",
       joinColumns = @JoinColumn(name = "INTERVAL_ID"),

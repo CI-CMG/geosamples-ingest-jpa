@@ -42,7 +42,7 @@ public class CuratorsAgeEntity {
   private String sourceUri;
 
   // no getters and setters on purpose, this needs to be here to generate a JPA query only
-  @ManyToMany(mappedBy = "ages", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @ManyToMany(mappedBy = "ages", fetch = FetchType.LAZY)
   private Set<CuratorsIntervalEntity> intervals = new HashSet<>(0);
 
   @Override
