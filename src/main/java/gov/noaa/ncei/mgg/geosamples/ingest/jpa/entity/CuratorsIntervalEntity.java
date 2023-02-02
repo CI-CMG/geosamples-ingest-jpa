@@ -2,9 +2,8 @@ package gov.noaa.ncei.mgg.geosamples.ingest.jpa.entity;
 
 import edu.colorado.cires.cmg.jpa.model.EntityWithId;
 import edu.colorado.cires.cmg.jpa.util.EntityUtil;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.CascadeType;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -116,7 +115,7 @@ public class CuratorsIntervalEntity implements EntityWithId<Long> {
       joinColumns = @JoinColumn(name = "INTERVAL_ID"),
       inverseJoinColumns = @JoinColumn(name = "AGE")
   )
-  private Set<CuratorsAgeEntity> ages = new HashSet<>(0);
+  private List<CuratorsAgeEntity> ages = new ArrayList<>(0);
 
   @Column(name = "ABSOLUTE_AGE_TOP", length = 50)
   private String absoluteAgeTop;
@@ -395,13 +394,13 @@ public class CuratorsIntervalEntity implements EntityWithId<Long> {
     this.description = description;
   }
 
-  public Set<CuratorsAgeEntity> getAges() {
+  public List<CuratorsAgeEntity> getAges() {
     return ages;
   }
 
-  public void setAges(Set<CuratorsAgeEntity> ages) {
+  public void setAges(List<CuratorsAgeEntity> ages) {
     if (ages == null) {
-      ages = new HashSet<>(0);
+      ages = new ArrayList<>(0);
     }
     this.ages = ages;
   }
