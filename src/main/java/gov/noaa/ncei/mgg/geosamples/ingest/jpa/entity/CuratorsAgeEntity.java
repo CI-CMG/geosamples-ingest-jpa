@@ -1,9 +1,9 @@
 package gov.noaa.ncei.mgg.geosamples.ingest.jpa.entity;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import javax.persistence.CascadeType;
+import edu.colorado.cires.cmg.jpa.model.EntityWithId;
+import edu.colorado.cires.cmg.jpa.util.EntityUtil;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,7 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CURATORS_AGE")
-public class CuratorsAgeEntity {
+public class CuratorsAgeEntity implements EntityWithId<String> {
 
 
   @Id
@@ -43,23 +43,16 @@ public class CuratorsAgeEntity {
 
   // no getters and setters on purpose, this needs to be here to generate a JPA query only
   @ManyToMany(mappedBy = "ages", fetch = FetchType.LAZY)
-  private Set<CuratorsIntervalEntity> intervals = new HashSet<>(0);
+  private List<CuratorsIntervalEntity> intervals = new ArrayList<>(0);
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    CuratorsAgeEntity that = (CuratorsAgeEntity) o;
-    return Objects.equals(age, that.age);
+    return EntityUtil.equals(this, o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(age);
+    return EntityUtil.hashCodeGeneratedId();
   }
 
   public String getAge() {
@@ -100,5 +93,10 @@ public class CuratorsAgeEntity {
 
   public void setSourceUri(String sourceUri) {
     this.sourceUri = sourceUri;
+  }
+
+  @Override
+  public String getId() {
+    return age;
   }
 }
