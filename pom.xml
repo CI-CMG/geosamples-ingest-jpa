@@ -4,7 +4,7 @@
 
   <groupId>gov.noaa.ncei.mgg.geology</groupId>
   <artifactId>geosamples-ingest-jpa</artifactId>
-  <version>1.2.1</version>
+  <version>1.2.2-SNAPSHOT</version>
 
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -17,7 +17,7 @@
     <connection>scm:git:git@github.com:CI-CMG/geosamples-ingest-jpa.git</connection>
     <developerConnection>scm:git:git@github.com:CI-CMG/geosamples-ingest-jpa.git</developerConnection>
     <url>https://github.com/CI-CMG/geosamples-ingest-jpa</url>
-    <tag>v1.2.1</tag>
+    <tag>1.2</tag>
   </scm>
 
   <dependencies>
