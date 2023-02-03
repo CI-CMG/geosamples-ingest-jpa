@@ -3,7 +3,10 @@ package gov.noaa.ncei.mgg.geosamples.ingest.jpa.entity;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /*
@@ -20,6 +23,11 @@ import javax.persistence.Table;
 public class CuratorsRemarkEntity {
 
   @Id
+  @Column(name = "ID", nullable = false, precision = 0)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CURATORS_REMARK_ID_SEQ")
+  @SequenceGenerator(name = "CURATORS_REMARK_ID_SEQ", sequenceName = "CURATORS_REMARK_ID_SEQ", allocationSize = 1)
+  private Long id;
+
   @Column(name = "REMARK", nullable = false, length = 70)
   private String remark;
 
@@ -50,6 +58,14 @@ public class CuratorsRemarkEntity {
   @Override
   public int hashCode() {
     return Objects.hash(remark);
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public String getRemark() {
