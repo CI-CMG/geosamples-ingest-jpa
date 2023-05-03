@@ -35,6 +35,11 @@ public class GeosamplesUserEntity implements EntityWithId<String> {
   @JoinColumn(name = "ROLE_ID", nullable = false)
   private GeosamplesRoleEntity userRole;
 
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "FACILITY_ID", nullable = false)
+  private CuratorsFacilityEntity facility;
+
+
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<GeosamplesTokenEntity> tokens = new ArrayList<>();
 
@@ -99,5 +104,13 @@ public class GeosamplesUserEntity implements EntityWithId<String> {
 
   public void setUserRole(GeosamplesRoleEntity userRole) {
     this.userRole = userRole;
+  }
+
+  public CuratorsFacilityEntity getFacility() {
+    return facility;
+  }
+
+  public void setFacility(CuratorsFacilityEntity facility) {
+    this.facility = facility;
   }
 }

@@ -30,7 +30,7 @@ public class CuratorsFacilityEntity implements EntityWithId<Long> {
   @Column(name = "INST_CODE", nullable = false,length = 3)
   private String instCode;
 
-  @Column(name = "FACILITY", length = 100)
+  @Column(name = "FACILITY", nullable = false, length = 100)
   private String facility;
 
   @Column(name = "ADDR_1", length = 100)
