@@ -5,23 +5,24 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Id;
 
-public class GeosamplesUserAuthorityEntityPk implements Serializable {
+public class GeosamplesRoleAuthorityEntityPk implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   @Id
-  @Column(name = "USER_NAME", nullable = false, length = 200)
-  private String userName;
+  @Column(name = "ROLE_ID", nullable = false)
+  private Long roleId;
+
   @Id
   @Column(name = "AUTHORITY_NAME", nullable = false, length = 100)
   private String authorityName;
 
-  public String getUserName() {
-    return userName;
+  public Long getRoleId() {
+    return roleId;
   }
 
-  public void setUserName(String username) {
-    this.userName = username;
+  public void setRoleId(Long roleId) {
+    this.roleId = roleId;
   }
 
   public String getAuthorityName() {
@@ -40,12 +41,13 @@ public class GeosamplesUserAuthorityEntityPk implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    GeosamplesUserAuthorityEntityPk that = (GeosamplesUserAuthorityEntityPk) o;
-    return Objects.equals(userName, that.userName) && Objects.equals(authorityName, that.authorityName);
+    GeosamplesRoleAuthorityEntityPk that = (GeosamplesRoleAuthorityEntityPk) o;
+    return Objects.equals(roleId, that.roleId) && Objects.equals(authorityName, that.authorityName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(userName, authorityName);
+    return Objects.hash(roleId, authorityName);
   }
+
 }

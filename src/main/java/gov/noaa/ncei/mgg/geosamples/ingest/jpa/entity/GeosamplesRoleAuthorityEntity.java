@@ -12,21 +12,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "GEOSAMPLES_USER_AUTHORITY")
-@IdClass(GeosamplesUserAuthorityEntityPk.class)
-public class GeosamplesUserAuthorityEntity implements EntityWithId<GeosamplesUserAuthorityEntityPk> {
-
+@Table(name = "GEOSAMPLES_ROLE_AUTHORITY")
+@IdClass(GeosamplesRoleAuthorityEntityPk.class)
+public class GeosamplesRoleAuthorityEntity implements EntityWithId<GeosamplesRoleAuthorityEntityPk> {
 
   @Id
-  @Column(name = "USER_NAME", nullable = false, length = 200)
-  private String userName;
+  @Column(name = "ROLE_ID", nullable = false)
+  private Long roleId;
+
   @Id
   @Column(name = "AUTHORITY_NAME", nullable = false, length = 100)
   private String authorityName;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "USER_NAME", nullable = false, insertable = false, updatable = false)
-  private GeosamplesUserEntity user;
+  @JoinColumn(name = "ROLE_ID", nullable = false, insertable = false, updatable = false)
+  private GeosamplesRoleEntity role;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "AUTHORITY_NAME", nullable = false, insertable = false, updatable = false)
@@ -43,23 +43,23 @@ public class GeosamplesUserAuthorityEntity implements EntityWithId<GeosamplesUse
   }
 
   @Override
-  public GeosamplesUserAuthorityEntityPk getId() {
-    GeosamplesUserAuthorityEntityPk id = new GeosamplesUserAuthorityEntityPk();
-    id.setUserName(userName);
+  public GeosamplesRoleAuthorityEntityPk getId() {
+    GeosamplesRoleAuthorityEntityPk id = new GeosamplesRoleAuthorityEntityPk();
+    id.setRoleId(roleId);
     id.setAuthorityName(authorityName);
     return id;
   }
 
-  public GeosamplesUserEntity getUser() {
-    return user;
+  public GeosamplesRoleEntity getRole() {
+    return role;
   }
 
-  public void setUser(GeosamplesUserEntity user) {
-    this.user = user;
-    if (user == null) {
-      this.userName = null;
+  public void setRole(GeosamplesRoleEntity role) {
+    this.role = role;
+    if (role == null) {
+      this.roleId = null;
     } else {
-      this.userName = user.getUserName();
+      this.roleId = role.getId();
     }
   }
 
@@ -76,11 +76,5 @@ public class GeosamplesUserAuthorityEntity implements EntityWithId<GeosamplesUse
     }
   }
 
-  public String getUserName() {
-    return userName;
-  }
 
-  public String getAuthorityName() {
-    return authorityName;
-  }
 }

@@ -8,7 +8,10 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -28,27 +31,12 @@ public class GeosamplesUserEntity implements EntityWithId<String> {
   @Column(name = "DISPLAY_NAME", nullable = false, length = 200)
   private String displayName;
 
-  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<GeosamplesUserAuthorityEntity> userAuthorities = new ArrayList<>();
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "ROLE_ID", nullable = false)
+  private GeosamplesRoleEntity userRole;
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<GeosamplesTokenEntity> tokens = new ArrayList<>();
-
-  public void addUserAuthority(GeosamplesUserAuthorityEntity userAuthority) {
-    EntityUtil.addAndParent(this, userAuthorities, userAuthority, this::removeUserAuthority, userAuthority::setUser);
-  }
-
-  public void removeUserAuthority(GeosamplesUserAuthorityEntity userAuthority) {
-    EntityUtil.removeAndOrphan(userAuthorities, userAuthority, userAuthority::setUser);
-  }
-
-  public void clearUserAuthorities() {
-    EntityUtil.clearAndOrphan(userAuthorities, GeosamplesUserAuthorityEntity::setUser);
-  }
-
-  public List<GeosamplesUserAuthorityEntity> getUserAuthorities() {
-    return Collections.unmodifiableList(userAuthorities);
-  }
 
   @Override
   public boolean equals(Object o) {
@@ -103,5 +91,13 @@ public class GeosamplesUserEntity implements EntityWithId<String> {
 
   public void clearTokens() {
     EntityUtil.clearAndOrphan(tokens, GeosamplesTokenEntity::setUser);
+  }
+
+  public GeosamplesRoleEntity getUserRole() {
+    return userRole;
+  }
+
+  public void setUserRole(GeosamplesRoleEntity userRole) {
+    this.userRole = userRole;
   }
 }
