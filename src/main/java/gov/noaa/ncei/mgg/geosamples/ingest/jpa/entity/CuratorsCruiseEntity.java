@@ -8,16 +8,20 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "CURATORS_CRUISE")
-public class CuratorsCruiseEntity implements EntityWithId<Long> {
+public class CuratorsCruiseEntity implements ApprovalResource<Long> {
 
   @Id
   @Column(name = "ID", nullable = false)
@@ -46,6 +50,10 @@ public class CuratorsCruiseEntity implements EntityWithId<Long> {
   // no getters and setters on purpose, this needs to be here to generate a JPA query only
   @OneToMany(mappedBy = "cruise")
   private List<CuratorsSampleTsqpEntity> samples = new ArrayList<>();
+
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "APPROVAL_ID", nullable = false)
+  private GeosamplesApprovalEntity approval;
 
   public void addPlatformMapping(CuratorsCruisePlatformEntity platformMapping) {
     EntityUtil.addAndParent(this, platformMappings, platformMapping, this::removePlatformMapping, platformMapping::setCruise);
@@ -136,5 +144,15 @@ public class CuratorsCruiseEntity implements EntityWithId<Long> {
 
   public void setPublish(boolean publish) {
     this.publish = publish ? "Y" : "N";
+  }
+
+  @Override
+  public GeosamplesApprovalEntity getApproval() {
+    return approval;
+  }
+
+  @Override
+  public void setApproval(GeosamplesApprovalEntity approval) {
+    this.approval = approval;
   }
 }

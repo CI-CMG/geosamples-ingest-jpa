@@ -4,6 +4,7 @@ import edu.colorado.cires.cmg.jpa.model.EntityWithId;
 import edu.colorado.cires.cmg.jpa.util.EntityUtil;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,12 +15,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "CURATORS_INTERVAL")
-public class CuratorsIntervalEntity implements EntityWithId<Long> {
+public class CuratorsIntervalEntity implements ApprovalResource<Long> {
 
   @Id
   @Column(name = "ID", nullable = false)
@@ -190,6 +192,10 @@ public class CuratorsIntervalEntity implements EntityWithId<Long> {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "IMLGS", nullable = false)
   private CuratorsSampleTsqpEntity sample;
+
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "APPROVAL_ID", nullable = false)
+  private GeosamplesApprovalEntity approval;
 
 
   @Override
@@ -596,5 +602,15 @@ public class CuratorsIntervalEntity implements EntityWithId<Long> {
 
   public void setSample(CuratorsSampleTsqpEntity sample) {
     this.sample = sample;
+  }
+
+  @Override
+  public GeosamplesApprovalEntity getApproval() {
+    return approval;
+  }
+
+  @Override
+  public void setApproval(GeosamplesApprovalEntity approval) {
+    this.approval = approval;
   }
 }

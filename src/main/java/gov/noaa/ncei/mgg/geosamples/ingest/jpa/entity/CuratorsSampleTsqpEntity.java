@@ -14,12 +14,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.locationtech.jts.geom.Geometry;
 
 @Entity
 @Table(name = "CURATORS_SAMPLE_TSQP")
-public class CuratorsSampleTsqpEntity implements EntityWithId<String> {
+public class CuratorsSampleTsqpEntity implements ApprovalResource<String> {
 
   @Id
   @Column(name = "IMLGS", length = 20, nullable = false)
@@ -124,6 +125,10 @@ public class CuratorsSampleTsqpEntity implements EntityWithId<String> {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "LEG_ID")
   private CuratorsLegEntity leg;
+
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "APPROVAL_ID", nullable = false)
+  private GeosamplesApprovalEntity approval;
 
   @OneToMany(mappedBy = "sample", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<CuratorsIntervalEntity> intervals = new ArrayList<>();
@@ -437,5 +442,15 @@ public class CuratorsSampleTsqpEntity implements EntityWithId<String> {
 
   public List<CuratorsSampleLinksEntity> getLinks() {
     return Collections.unmodifiableList(links);
+  }
+
+  @Override
+  public GeosamplesApprovalEntity getApproval() {
+    return approval;
+  }
+
+  @Override
+  public void setApproval(GeosamplesApprovalEntity approval) {
+    this.approval = approval;
   }
 }
