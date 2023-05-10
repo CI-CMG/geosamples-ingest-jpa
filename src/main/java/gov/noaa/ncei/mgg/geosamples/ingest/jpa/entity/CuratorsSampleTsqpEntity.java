@@ -1,6 +1,5 @@
 package gov.noaa.ncei.mgg.geosamples.ingest.jpa.entity;
 
-import edu.colorado.cires.cmg.jpa.model.EntityWithId;
 import edu.colorado.cires.cmg.jpa.util.EntityUtil;
 import java.time.Instant;
 import java.util.ArrayList;
