@@ -1,22 +1,25 @@
 package gov.noaa.ncei.mgg.geosamples.ingest.jpa.entity;
 
-import edu.colorado.cires.cmg.jpa.model.EntityWithId;
 import edu.colorado.cires.cmg.jpa.util.EntityUtil;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "PLATFORM_MASTER")
-public class PlatformMasterEntity implements EntityWithId<Long> {
+public class PlatformMasterEntity implements ApprovalResource<Long> {
 
   @Id
   @Column(name = "ID", nullable = false, precision = 0)
@@ -55,6 +58,14 @@ public class PlatformMasterEntity implements EntityWithId<Long> {
   // no getters and setters on purpose, this needs to be here to generate a JPA query only
   @OneToMany(mappedBy = "platform")
   private List<CuratorsCruisePlatformEntity> cruisePlatforms = new ArrayList<>();
+
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "CREATED_BY")
+  private GeosamplesUserEntity createdBy;
+
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+  @JoinColumn(name = "APPROVAL_ID")
+  private GeosamplesApprovalEntity approval;
 
 
   @Override
@@ -142,5 +153,21 @@ public class PlatformMasterEntity implements EntityWithId<Long> {
 
   public String getPlatformNormalized() {
     return platformNormalized;
+  }
+
+  public GeosamplesUserEntity getCreatedBy() {
+    return createdBy;
+  }
+
+  public void setCreatedBy(GeosamplesUserEntity user) {
+    this.createdBy = user;
+  }
+
+  public GeosamplesApprovalEntity getApproval() {
+    return approval;
+  }
+
+  public void setApproval(GeosamplesApprovalEntity approval) {
+    this.approval = approval;
   }
 }
