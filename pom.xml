@@ -17,7 +17,7 @@
     <connection>scm:git:git@github.com:CI-CMG/geosamples-ingest-jpa.git</connection>
     <developerConnection>scm:git:git@github.com:CI-CMG/geosamples-ingest-jpa.git</developerConnection>
     <url>https://github.com/CI-CMG/geosamples-ingest-jpa</url>
-    <tag>HEAD</tag>
+    <tag>1.4</tag>
   </scm>
 
   <dependencies>
