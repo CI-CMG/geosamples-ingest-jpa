@@ -84,7 +84,6 @@
           <useReleaseProfile>false</useReleaseProfile>
           <goals>deploy</goals>
           <tagNameFormat>v@{project.version}</tagNameFormat>
-          <arguments>-Pdep-check</arguments>
         </configuration>
       </plugin>
     </plugins>
